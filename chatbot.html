@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Octavio Bot</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: #eee;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0;
+  }
+
+  #chat-container {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    background: url('https://i.ibb.co/6RL70w8m/IMG-20250718-WA0003.jpg') no-repeat center center;
+    background-size: cover;
+    border-radius: 12px;
+  }
+
+  .message {
+    margin: 12px 0;
+    padding: 16px 20px;
+    max-width: 75%;
+    border-radius: 16px;
+    position: relative;
+    white-space: pre-wrap;
+    line-height: 1.5;
+    letter-spacing: 0.5px;
+    font-size: 16px;
+    animation: borderAppear 0.5s ease forwards;
+    word-break: break-word; /* ✅ évite que les longs mots dépassent */
+  }
+
+  .bot-message {
+    align-self: flex-start;
+    background: rgba(30, 40, 50, 0.85);
+    color: #d1f0c4;
+    border: 2px solid #90ee90;
+    font-weight: 500;
+  }
+
+  .user-message {
+    align-self: flex-end;
+    background: rgba(0, 123, 255, 0.85);
+    border: 2px solid #4da6ff;
+    color: #fff;
+  }
+
+  @keyframes borderAppear {
+    0% { border-width: 0; opacity: 0; transform: scale(0.95); }
+    100% { border-width: 2px; opacity: 1; transform: scale(1); }
+  }
+
+  #input-container {
+    display: flex;
+    padding: 10px;
+    background: #1b2735;
+  }
+
+  #user-input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    outline: none;
+    font-size: 15px;
+    color: white;
+    background: #111;
+  }
+
+  #send-btn {
+    margin-left: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background: #007bff;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  .cursor {
+    display: inline-block;
+    width: 10px;
+    background-color: #d1f0c4;
+    animation: blink 1s infinite;
+  }
+
+  @keyframes blink {
+    0%, 50%, 100% { opacity: 1; }
+    25%, 75% { opacity: 0; }
+  }
+
+  /* ✅ Bouton retour plus visible */
+  .back-link {
+    display: block;
+    text-align: center;
+    padding: 10px;
+    background: #ff4444;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 8px;
+    margin: 10px;
+  }
+</style>
+</head>
+<body>
+
+<div id="chat-container"></div>
+
+<div id="input-container">
+  <input type="text" id="user-input" placeholder="Écris ta question...">
+  <button id="send-btn">Envoyer</button>
+</div>
+
+<a href="index.html" class="back-link">⬅ RETOUR</a>
+
+<script>
+const chatContainer = document.getElementById("chat-container");
+const userInput = document.getElementById("user-input");
+const sendBtn = document.getElementById("send-btn");
+
+function typeWriter(div, text, i=0, speed=25){
+  const cursor = document.createElement("span");
+  cursor.className = "cursor";
+  cursor.textContent = "|";
+  div.appendChild(cursor);
+
+  function addChar(){
+    if(i < text.length){
+      cursor.insertAdjacentText("beforebegin", text.charAt(i));
+      i++;
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+      setTimeout(addChar, speed);
+    } else {
+      cursor.remove();
+    }
+  }
+  addChar();
+}
+
+function addMessage(sender, text, typing=false){
+  const div = document.createElement("div");
+  div.className = "message " + (sender==="user" ? "user-message" : "bot-message");
+  chatContainer.appendChild(div);
+  chatContainer.scrollTop = chatContainer.scrollHeight;
+
+  if(typing){
+    typeWriter(div, text);
+  } else {
+    div.textContent = text;
+  }
+}
+
+async function askGemini(prompt){
+  const apiKey = "AIzaSyAaZkM5zG11lrotfZfkKyts-TbKheHr05o";
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+  const body = { contents: [{ parts: [{ text: prompt }] }] };
+
+  const lower = prompt.toLowerCase();
+  if (lower.includes("qui t'a créé") || lower.includes("créateur") || lower.includes("inventeur") || lower.includes("propriétaire") || lower.includes("développeur")) {
+    addMessage("bot", "🤖 Bonjour ! Je suis une intelligence artificielle créée uniquement par Octavio Wina 💻.\nJe suis conçu pour répondre sérieusement et précisément à toutes vos questions. ⚡💡", true);
+    return;
+  }
+
+  const waitingDiv = document.createElement("div");
+  waitingDiv.className = "message bot-message";
+  waitingDiv.textContent = "⏳ Je réfléchis...";
+  chatContainer.appendChild(waitingDiv);
+  chatContainer.scrollTop = chatContainer.scrollHeight;
+
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body)
+    });
+
+    waitingDiv.remove();
+
+    if (response.ok) {
+      const data = await response.json();
+      const botReply = data.candidates?.[0]?.content?.parts?.[0]?.text || "😵 Je n’ai pas compris.";
+      addMessage("bot", botReply, true);
+    } else {
+      addMessage("bot", "❌ Erreur de réponse du serveur.", false);
+    }
+  } catch (error) {
+    waitingDiv.textContent = "❌ Erreur lors de la connexion.";
+    console.error(error);
+  }
+}
+
+sendBtn.addEventListener("click", ()=>{
+  const text = userInput.value.trim();
+  if(!text) return;
+  addMessage("user", text);
+  userInput.value="";
+  askGemini(text);
+});
+
+userInput.addEventListener("keypress", e=>{
+  if(e.key==="Enter") sendBtn.click();
+});
+
+window.onload = ()=>{
+  addMessage("bot","👋 Bonjour et bienvenue !\nMoi c'est Octavio Bot 🤖, une intelligence artificielle sérieuse et fiable. 💡\nPosez-moi toutes vos questions, je suis là pour répondre avec précision et sérieux. ⚡✨",true);
+};
+</script>
+
+</body>
+</html>

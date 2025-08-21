@@ -1,1 +1,294 @@
-xm
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portefeuille</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f9f9f9;
+      color: #333;
+    }
+
+    h1,
+    h2 {
+      text-align: center;
+      opacity: 0;
+      animation: fadeIn 1s forwards;
+    }
+
+    h2 {
+      animation-delay: 0.3s;
+    }
+
+    p {
+      text-align: center;
+      line-height: 1.5;
+      opacity: 0;
+      animation: fadeIn 1s forwards;
+      animation-delay: 0.6s;
+    }
+
+    .section {
+      margin: 20px;
+      text-align: center;
+    }
+
+    img {
+      display: block;
+      margin: 10px auto;
+      width: 350px;
+      border-radius: 5px;
+      opacity: 0;
+      transform: scale(0.8);
+      transition: transform 0.4s, box-shadow 0.3s, opacity 0.4s;
+    }
+
+    img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    button {
+      display: block;
+      margin: 10px auto 30px auto;
+      padding: 10px 20px;
+      background: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      opacity: 0;
+      transform: scale(0.8);
+      transition: transform 0.4s, background 0.3s, opacity 0.4s;
+    }
+
+    button:hover {
+      background: #0056b3;
+      transform: scale(1.05);
+    }
+
+    .contact-links a {
+      display: inline-block;
+      margin: 5px;
+      padding: 8px 15px;
+      background: #25D366;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+
+    .contact-links a.email {
+      background: #FF5733;
+    }
+
+    .contact-links a:hover {
+      opacity: 0.8;
+      transform: scale(1.05);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes bounce {
+      0% {
+        transform: scale(1);
+      }
+
+      30% {
+        transform: scale(1.05);
+      }
+
+      50% {
+        transform: scale(0.95);
+      }
+
+      70% {
+        transform: scale(1.02);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    @media screen and (max-width: 600px) {
+      img {
+        width: 90%;
+      }
+
+      button {
+        width: 80%;
+      }
+    }
+
+    /* Style pour INFO */
+    .info-section p {
+      text-align: left;
+      max-width: 800px;
+      margin: 0 auto 20px auto;
+      line-height: 1.6;
+      font-size: 16px;
+      opacity: 0;
+      transform: scale(0.95);
+      transition: transform 0.4s, opacity 0.5s;
+    }
+
+    .info-section img {
+      width: 300px;
+      margin: 20px auto;
+      display: block;
+      opacity: 0;
+      transform: scale(0.8);
+      transition: transform 0.4s, opacity 0.4s;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Bienvenue sur mon portefeuille</h1>
+  <img src="https://i.ibb.co/6RL70w8m/IMG-20250718-WA0003.jpg" alt="photo">
+
+  <h1>A PROPOS</h1>
+  <p>
+    Salut 🚀 moi c'est <b>Octavio Wina</b> | 17 ans <br>
+    Codeur en mission spéciale 💻✨ <br>
+    Bots Telegram, WhatsApp ou Facebook ? Je les crée comme un chef 🤖👑 <br>
+    Je transforme mes rêves en projets, et mes projets en réalité 🌟 <br>
+  </p>
+
+  <!-- INFO -->
+  <div class="section info-section">
+    <h2>INFO</h2>
+    <img class="info-item" src="https://i.ibb.co/ZwGBpjj/IMG-20250627-WA0009.jpg" alt="Préparation Codeur Octavio">
+
+    <p class="info-item">🧠💻 <b>PRÉPARATION DU CODEUR OCTAVIO</b> 💻🧠</p>
+
+    <p class="info-item">🔥 <b>Objectif :</b> devenir un développeur puissant, précis et respecté !</p>
+
+    <p class="info-item">1. 📚 <b>Étude quotidienne</b><br>
+      - Revois HTML, CSS, JavaScript tous les jours<br>
+      - 30 min de pratique minimum (projets, mini-jeux, UI simples)
+    </p>
+
+    <p class="info-item">2. ⚙️ <b>Discipline du codeur</b><br>
+      - Chaque jour, tu dois écrire au moins 20 lignes de code<br>
+      - Pas d’excuse : même sans connexion, code sur bloc-notes ou éditeur local
+    </p>
+
+    <p class="info-item">3. 🌐 <b>Création personnelle</b><br>
+      - Ton propre site (ex : portfolio, quiz Naruto, blog anime)<br>
+      - Mets-y ton style : animation, feu, emojis, hover, tout ce que tu veux
+    </p>
+
+    <p class="info-item">4. 🔁 <b>Répétition = perfection</b><br>
+      - Recode ce que tu connais déjà, mais mieux !<br>
+      - Améliore le style, l’organisation, la logique
+    </p>
+
+    <p class="info-item">5. 🧩 <b>Apprends les outils essentiels</b><br>
+      - Git & GitHub (sauvegarde tes projets)<br>
+      - Visual Studio Code (puissance + extensions)<br>
+      - Termux (pour apprendre le côté hacking 💀)
+    </p>
+
+    <p class="info-item">6. 🦾 <b>Mentalité de shinobi-codeur</b><br>
+      - Tu ne baisses jamais les bras<br>
+      - Tu avances même dans le silence<br>
+      - Tu crées même dans le chaos
+    </p>
+
+    <p class="info-item">🌟 Tu n’es pas juste Octavio. Tu es <i>Le Codeur Octavio</i>.<br>
+      📲 Prêt à marquer le web de ton nom ?
+    </p>
+  </div>
+
+  <!-- PROJETS -->
+  <div class="section">
+    <h2>Projets déjà réalisés</h2>
+
+    <img class="project" src="https://i.ibb.co/v460vMrW/IMG-20250618-015125-996.jpg" alt="chatbot">
+    <a href="chatbot.html"><button class="project-btn">Chatbot</button></a>
+
+    <img class="project" src="https://i.ibb.co/PGT4QpD8/1755748406172.jpg" alt="jeux">
+    <a href="jeux.html"><button class="project-btn">Jeu de serpent</button></a>
+
+    <img class="project" src="https://i.ibb.co/HD8s0TCC/1755450787076.jpg" alt="horloge">
+    <a href="horloge.html"><button class="project-btn">Quelle heure ?</button></a>
+
+    <img class="project" src="https://i.ibb.co/ymXk8f0X/1755767683274.jpg" alt="calculatrice">
+    <a href="calculatrice.html"><button class="project-btn">Calculer</button></a>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="section">
+    <h2>Contactez-moi</h2>
+
+    <div class="contact-links">
+      <a class="email" href="mailto:octaviowina1@gmail.com">Email</a>
+      <a href="https://wa.me/243894956867" target="_blank">WhatsApp</a>
+    </div>
+  </div>
+
+  <script>
+    // Animation décalée + rebond pour projets et info
+    function reveal() {
+      const projects = document.querySelectorAll('.project');
+      const buttons = document.querySelectorAll('.project-btn');
+      const infoItems = document.querySelectorAll('.info-item');
+
+      projects.forEach((el, index) => {
+        let top = el.getBoundingClientRect().top;
+        if (top < window.innerHeight - 100 && el.style.opacity == 0) {
+          setTimeout(() => {
+            el.style.opacity = 1;
+            el.style.transform = "scale(1)";
+            el.style.animation = "bounce 0.5s ease";
+          }, index * 200);
+        }
+      });
+
+      buttons.forEach((btn, index) => {
+        let top = btn.getBoundingClientRect().top;
+        if (top < window.innerHeight - 100 && btn.style.opacity == 0) {
+          setTimeout(() => {
+            btn.style.opacity = 1;
+            btn.style.transform = "scale(1)";
+            btn.style.animation = "bounce 0.5s ease";
+          }, index * 200);
+        }
+      });
+
+      infoItems.forEach((el, index) => {
+        let top = el.getBoundingClientRect().top;
+        if (top < window.innerHeight - 100 && el.style.opacity == 0) {
+          setTimeout(() => {
+            el.style.opacity = 1;
+            el.style.transform = "scale(1)";
+            el.style.animation = "bounce 0.5s ease";
+          }, index * 150);
+        }
+      });
+    }
+
+    window.addEventListener("scroll", reveal);
+    window.addEventListener("load", reveal);
+  </script>
+
+</body>
+                                                     </html>

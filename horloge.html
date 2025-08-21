@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Horloge en direct - Octavio</title>
+<style>
+  body {
+    background-color: black;
+    color: red;
+    font-family: monospace;
+    text-align: center;
+    padding-top: 50px;
+  }
+
+  h1 {
+    color: red;
+    font-size: 40px;
+    margin-bottom: 20px;
+  }
+
+  .clock {
+    font-size: 50px;
+    color: lime;
+    background-color: #111;
+    padding: 20px 50px;
+    border-radius: 10px;
+    display: inline-block;
+    box-shadow: 0 0 20px lime;
+  }
+
+  .emoji {
+    font-size: 40px;
+    margin: 10px 0;
+  }
+
+  a button {
+    font-size: 16px;
+    padding: 8px 20px;
+    border-radius: 5px;
+    border: none;
+    background-color: red;
+    color: white;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<p><a href="index.html"><button>RETOUR</button></a></p>
+
+<h1>Horloge en direct</h1>
+<div class="emoji">⏱️</div>
+<div id="clock" class="clock">00:00:00</div>
+
+<script>
+function updateClock() {
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2,'0');
+    const minutes = String(now.getMinutes()).padStart(2,'0');
+    const seconds = String(now.getSeconds()).padStart(2,'0');
+    document.getElementById('clock').textContent = `${hours} : ${minutes} : ${seconds}`;
+}
+
+// Met à jour toutes les secondes
+setInterval(updateClock, 1000);
+updateClock();
+</script>
+
+</body>
+</html>

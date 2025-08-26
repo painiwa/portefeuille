@@ -162,7 +162,7 @@ function addMessage(sender, text, typing=false){
 }
 
 async function askGemini(prompt){
-  const apiKey = "AIzaSyAaZkM5zG11lrotfZfkKyts-TbKheHr05o";
+  const apiKey = "AIzaSyB_luKPID48pMTHkangBJEJ-FysJnSJBCU";
   const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
   const body = { contents: [{ parts: [{ text: prompt }] }] };
 
